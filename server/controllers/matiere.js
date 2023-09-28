@@ -1,4 +1,4 @@
-import Matiere from "../models/matiere.js";
+import Matiere from "../models/tache.js";
 
 export const getMatieres = async (req, res) => {
   const limit = req.query.limit || 10;
@@ -25,9 +25,7 @@ export const getMatiereById = async (req, res) => {
 
 export const createMatiere = async (req, res) => {
   const matiere = req.body;
-  const image = req.file;
-  console.log('images ', image)
-  const newMatiere = new Matiere({ ...matiere, image: image.filename });
+  const newMatiere = new Matiere({ ...matiere });
   try {
     await newMatiere.save();
     res.status(201).json(newMatiere);
@@ -40,7 +38,7 @@ export const updateMatiere = async (req, res) => {
   const { id } = req.params;
   const matiere = req.body;
   if (!mongoose.Types.ObjectId.isValid(id))
-    return res.status(404).send("No product with that id");
+    return res.status(404).send("No Matiere with that id");
   try {
     const updateMatiere = await Matiere.updateById(id, matiere, { new: true });
     res.status(200).json(updateMatiere);
@@ -52,7 +50,7 @@ export const updateMatiere = async (req, res) => {
 export const deleteMatiere = async (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id))
-    return res.status(404).send("No product with that id");
+    return res.status(404).send("No matiere with that id");
   try {
     await Matiere.findByIdAndDelete(id);
     res.status(200).json({ message: "Matiere deleted successfully" });

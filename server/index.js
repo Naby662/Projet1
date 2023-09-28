@@ -3,7 +3,8 @@ import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import authRoutes from './routes/users.js'
-import productRoutes from './routes/products.js'
+import matiereRoutes from './routes/matiere.js'
+import tacheRoutes from './routes/tache.js'
 
 const app = express()
 
@@ -16,8 +17,11 @@ app.use(cors())
 
 app.use('/uploads', express.static('uploads'))
 
+//app.use('/auth', authRoutes)
+//app.use('/matieres', matiereRoutes)
+
 app.use('/auth', authRoutes)
-app.use('/products', productRoutes)
+app.use('/tache', tacheRoutes)
 
 mongoose.connect(MONGODB_URI, {
     useNewUrlParser: true,
